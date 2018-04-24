@@ -24,7 +24,7 @@ public:
         Call *call = new MyCall(*this, iprm.callId);
 
         CallOpParam op;
-        op.statusCode = PJSIP_SC_RINGING;
+        op.statusCode = PJSIP_SC_OK;
         call->answer(op);
 
         delete call;
