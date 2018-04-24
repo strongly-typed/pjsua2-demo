@@ -1,0 +1,18 @@
+image: docker:stable
+
+# When using dind, it's wise to use the overlayfs driver for
+# improved performance.
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+- docker:dind
+
+before_script:
+- docker info
+
+build:
+  stage: build
+  script:
+  - docker build -t pjsua2-docker-image .
+  - docker run pjsua2-docker-image /build.sh
