@@ -20,6 +20,7 @@ public:
     }
 
     virtual void onIncomingCall(OnIncomingCallParam &iprm) {
+        std::cout << "*** onIncomingCall callId=" << iprm.callId << std::endl;
         Call *call = new MyCall(*this, iprm.callId);
 
         CallOpParam op;
