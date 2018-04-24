@@ -36,14 +36,20 @@ int main() {
     Endpoint ep;
     ep.libCreate();
 
+    // Get config from environment
+    const char* sip_stun_uri = std::getenv("SIP_STUN_URI");
+    if (not sip_stun_uri) { printf("SIP_STUN_URI not set by environment\n"); exit(-1); }
+
     // Init endpoint
     EpConfig ep_cfg;
+    ep_cfg.uaConfig.stunServer.push_back(sip_stun_uri);
     ep.libInit(ep_cfg);
 
     TransportConfig tcfg;
     tcfg.port = 5060;
     try {
         ep.transportCreate(PJSIP_TRANSPORT_UDP, tcfg);
+        ep.transportCreate(PJSIP_TRANSPORT_TCP, tcfg);
     } catch (Error &err) {
         std::cout << err.info() << std::endl;
         return 1;
