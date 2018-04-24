@@ -11,4 +11,4 @@ RUN svn checkout http://svn.pjsip.org/repos/pjproject/tags/2.7.2 pjproject-2.7.2
     && make \
     && make install
 
-ADD * /
+WORKDIR /app

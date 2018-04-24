@@ -20,5 +20,6 @@ build:
       -e SIP_REGISTRAR_URI=${SIP_REGISTRAR_URI}
       -e SIP_USERNAME=${SIP_USERNAME}
       -e SIP_PASSOWRD=${SIP_PASSOWRD}
+      --mount type=bind,source="$(pwd)",target=/app
       pjsua2-docker-image
-      /build.sh
+      /app/build.sh
