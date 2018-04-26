@@ -43,6 +43,8 @@ int main() {
     // Init endpoint
     EpConfig ep_cfg;
     ep_cfg.uaConfig.stunServer.push_back(sip_stun_uri);
+    ep_cfg.logConfig.level = 5;
+    ep_cfg.logConfig.consoleLevel = 5;
     ep.libInit(ep_cfg);
 
     TransportConfig tcfg;
