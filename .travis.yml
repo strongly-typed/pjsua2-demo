@@ -1,0 +1,34 @@
+language: cpp
+
+# List OSes which shall be tested with OS-specific options
+matrix:
+  include:
+   - os: osx
+     osx_image: xcode9.3
+     env: PJ_VERSION="tags/2.7.2"
+   - os: osx
+     osx_image: xcode9.3
+     env: PJ_VERSION="trunk"
+   - os: linux
+     sudo: required
+     env: PJ_VERSION="tags/2.7.2"
+   - os: linux
+     sudo: required
+     env: PJ_VERSION="trunk"
+
+before_install: 
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y -qq build-essential pkg-config python-dev libssl-dev libasound2-dev; fi
+
+before_script:
+  - svn checkout http://svn.pjsip.org/repos/pjproject/${PJ_VERSION} pjproject
+  - cd pjproject
+  - ./configure
+  - make dep
+  - make -j2
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo make install; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then      make install; fi
+  - cd ..
+
+script:
+  - cmake . && make

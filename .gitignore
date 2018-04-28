@@ -33,3 +33,10 @@ secrets.txt
 *.exe
 *.out
 *.app
+
+# Builds
+/build
+
+# IDEs
+/.idea
+/cmake-build-debug
